@@ -1,11 +1,16 @@
 import React from "react";
 
-const TodoListItem = ({ todos }) => {
+const TodoListItem = ({ text, important }) => {
+
+   
+
+   const style = {
+      color: important ? 'red' : 'Black'
+   };
+
    return(
-      <ul>
-         {todos.map(item => <li key={item.text}>{item.text}</li>)}
-      </ul>
+      <li style={style}>{text}</li>
    );
 };
 
-export default TodoListItem;
+export default TodoListItem; 

@@ -3,8 +3,12 @@ import React from "react";
 import TodoListItem from "./TodoListItem";
 
 const TodoList  = ({ todos }) => {
+  
+
    return (
-     <TodoListItem todos = {todos} />
+    <ul>
+      {todos.map(item => <TodoListItem key={item.text} {...item}/>)}
+    </ul>
    );
 };
 
