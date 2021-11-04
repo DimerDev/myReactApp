@@ -6,8 +6,8 @@ const TodoList  = ({ todos }) => {
   
 
    return (
-    <ul>
-      {todos.map(item => <TodoListItem key={item.text} {...item}/>)}
+    <ul className=" list-group pl-0 ">
+      {todos.map(item => <TodoListItem  key={item.text} {...item}/>)}
     </ul>
    );
 };
