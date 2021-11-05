@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const TodoListItem = ({ text }) => {
+const TodoListItem = ({ text, onDeleted }) => {
 
    const [ item, setItem ] = useState({
       done: false,
@@ -15,7 +15,7 @@ const TodoListItem = ({ text }) => {
 
    const handleDone = () => {
       setItem(({done})=> {   
-         return{
+         return {
          done: !done
          };
       });
@@ -32,13 +32,15 @@ const TodoListItem = ({ text }) => {
    return(
       <span className={classNames} >
          <span onClick={handleDone}>{text}</span>
-            <button type="button" className="btn float-right">
+            <button
+               type="button"
+               className="btn float-right"
+               onClick={onDeleted}>
                <i className="fas fa-trash fa-1x"></i>
             </button>
             <button type="button" className="btn float-right" onClick={hadleImportant}>
                <i className="fas fa-exclamation-triangle"></i>
             </button>
-         
       </span>
    );
 };
