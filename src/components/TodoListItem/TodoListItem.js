@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 const TodoListItem = ({ text }) => {
 
-   const [ item, setDone ] = useState({
-      done : false,
+   const [ item, setItem ] = useState({
+      done: false,
       important: false 
    });
          
@@ -14,32 +14,19 @@ const TodoListItem = ({ text }) => {
    if (item.important) classNames += important;
 
    const handleDone = () => {
-      if (item.done){
-         setDone({
-            done: false,
-            important: false
-         });
-      }else {
-         setDone({
-            done: true,
-            important: false
-         });
-      }
+      setItem(({done})=> {   
+         return{
+         done: !done
+         };
+      });
    };
    
-   const hadleImportant = (event) => {
-      console.log(event.target);
-      if (item.important){
-         setDone({
-            done: false,
-            important: false
-         });
-      }else {
-         setDone({
-            done: false,
-            important: true
-         });
-      }
+   const hadleImportant = () => {
+      setItem(({important})=> {
+         return {
+            important: !important
+         };
+      });
    };
 
    return(
