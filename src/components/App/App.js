@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react/cjs/react.development";
 
+import AddFormItem from "../AddFormItem/AddFormItem";
 import AppHeader from "../AppHeader/AppHeader";
 import SearchPanel from "../SearchPanel/SearchPanel";
 import TodoList from "../TodoList/TodoList";
@@ -28,11 +29,12 @@ const App = () => {
       <div className="row">
         <div className="col-sm-3"></div>
         <div className="col-sm-6">
-        <AppHeader />
-        <SearchPanel />
-        <TodoList
-          todos= {todoData}
-          onDeleted= {(id) => deleteListItem(id)} />
+          <AppHeader />
+          <SearchPanel />
+          <TodoList
+            todos= {todoData}
+            onDeleted= {(id) => deleteListItem(id)} />
+            <AddFormItem />  
         </div>
         <div className="col-sm-3"></div>
       </div>  
