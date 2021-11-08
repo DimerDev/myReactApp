@@ -73,7 +73,7 @@ const App = () => {
         <div className="col-sm-3"></div>
         <div className="col-sm-6">
           <AppHeader />
-          <SearchPanel />
+          <SearchPanel todos= {todoData} />
           <TodoList
             todos= {todoData}
             onDeleted= { (id) => deleteItem(id) }

@@ -1,13 +1,19 @@
 import React from "react";
 
-const SearchPanel = () => {
+const SearchPanel = ({todos}) => {
    return (
      <div className="input-group mb-3 lign-items-center">
       <input type="text" className="form-control" placeholder="search" />
       <div className="input-group-append">
-        <button type="button" className="btn btn-info">All</button>
-        <button type="button" className="btn btn-light">Active</button>
-        <button type="button" className="btn btn-light">Done</button>
+        <button type="button" className="btn btn-info">All
+          <span className="badge badge-secondary ml-1">{todos.todoItems.length}</span>
+        </button>
+        <button type="button" className="btn btn-light">Active
+          <span className="badge badge-secondary ml-1">1</span>
+        </button>
+        <button type="button" className="btn btn-light">Done
+          <span className="badge badge-success ml-1">1</span>
+        </button>
       </div>
     </div>
    );
