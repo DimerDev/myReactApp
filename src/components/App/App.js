@@ -11,18 +11,18 @@ const App = () => {
   let startId = 5; 
 
   const [todoData ,setTodoData] = useState({
-      todoItem: [
-      { text: 'Drink Coffe', important: false, id: 1 },
-      { text: 'Make App', important: true, id: 2 },
-      { text: 'Dinner', important: false, id: 3 },
+      todoItems: [
+      { text: 'Drink Coffe', important: false, done: false, id: 1 },
+      { text: 'Make App', important: true, done: false, id: 2 },
+      { text: 'Dinner', important: false, done: false, id: 3 },
     ]
   });
   
   const deleteItem = (id) => {
-    setTodoData(({todoItem}) => {
-      const arr = todoItem.filter((elem)=> elem.id !== id );
+    setTodoData(({todoItems}) => {
+      const arr = todoItems.filter((elem)=> elem.id !== id );
       return {
-        todoItem : arr
+        todoItems : arr
       }
     });
   }
@@ -31,13 +31,38 @@ const App = () => {
     const newTask = {
       text: text,
       important: false,
+      done: false,
       id: ++startId + text
     }
-    setTodoData(({todoItem}) => {
-      const arr = todoItem;
+    setTodoData(({todoItems}) => {
+      const arr = todoItems;
       arr.push(newTask)
       return {
-        todoItem : arr
+        todoItems : arr
+      }
+    });
+  };
+
+  const onToggleDone = (id) => {
+    setTodoData(({todoItems})=>{
+      const arr = todoItems.map(item => {
+        if(item.id === id) item.done = !item.done;
+        return item;
+      });
+      return {
+        todoItems : arr
+      }
+    });
+  };
+
+  const onToggleImportant = (id) => {
+    setTodoData(({todoItems})=> {
+      const arr = todoItems.map(item => {
+        if (item.id === id) item.important = !item.important;
+        return item;
+      });
+      return {
+        todoItems : arr
       }
     });
   };
@@ -51,8 +76,10 @@ const App = () => {
           <SearchPanel />
           <TodoList
             todos= {todoData}
-            onDeleted= {(id) => deleteItem(id)} />
-            <AddFormItem onAdded ={(text)=> addItem(text)} />  
+            onDeleted= { (id) => deleteItem(id) }
+            onDone = { (id) => onToggleDone (id) }
+            onImportant = { (id) => onToggleImportant(id) }/>
+            <AddFormItem onAdded ={(text) => addItem(text) } />  
         </div>
         <div className="col-sm-3"></div>
       </div>  

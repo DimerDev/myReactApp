@@ -1,44 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 
-const TodoListItem = ({ text, onDeleted }) => {
+const TodoListItem = ({ text, important, done, onDeleted, onDone, onImportant }) => {
+   
 
-   const [ item, setItem ] = useState({
-      done: false,
-      important: false 
-   });
          
    let classNames = 'list-group-item justify-content-center';
    const complete = ' list-group-item-success';
-   const important = ' font-weight-bold text-danger';
-   if (item.done) classNames += complete;
-   if (item.important) classNames += important;
+   const importantClass = ' font-weight-bold text-danger';
+   if (done) classNames += complete;
+   if (important) classNames += importantClass;
 
-   const handleDone = () => {
-      setItem(({done})=> {   
-         return {
-         done: !done
-         };
-      });
-   };
-   
-   const hadleImportant = () => {
-      setItem(({important})=> {
-         return {
-            important: !important
-         };
-      });
-   };
-
+  
    return(
       <span className={classNames} >
-         <span onClick={handleDone}>{text}</span>
+         <span onClick={onDone}>{text}</span>
             <button
                type="button"
                className="btn float-right"
                onClick={onDeleted}>
                <i className="fas fa-trash fa-1x"></i>
             </button>
-            <button type="button" className="btn float-right" onClick={hadleImportant}>
+            <button type="button" className="btn float-right" onClick={onImportant}>
                <i className="fas fa-exclamation-triangle"></i>
             </button>
       </span>
