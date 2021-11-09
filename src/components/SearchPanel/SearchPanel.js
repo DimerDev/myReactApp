@@ -1,6 +1,10 @@
 import React from "react";
 
 const SearchPanel = ({todos}) => {
+
+  const itemDone = todos.todoItems.filter(item => item.done).length;
+  const itemActive = todos.todoItems.length - itemDone;
+
    return (
      <div className="input-group mb-3 lign-items-center">
       <input type="text" className="form-control" placeholder="search" />
@@ -9,10 +13,10 @@ const SearchPanel = ({todos}) => {
           <span className="badge bg-secondary ms-1">{todos.todoItems.length}</span>
         </button>
         <button type="button" className="btn btn-light">Active
-          <span className="badge bg-secondary ms-1">1</span>
+          <span className="badge bg-secondary ms-1">{itemActive}</span>
         </button>
         <button type="button" className="btn btn-light">Done
-          <span className="badge bg-secondary ms-1">1</span>
+          <span className="badge bg-secondary ms-1">{itemDone}</span>
         </button>
       </div>
     </div>
