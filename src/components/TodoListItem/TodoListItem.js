@@ -6,7 +6,7 @@ const TodoListItem = ({ text, important, done, onDeleted, onDone, onImportant })
       fontSize:"150%",
       color: "#3d4a8f"
    };     
-   let classNames = 'list-group-item';
+   let classNames = 'list-group-item d-flex justify-content-between align-items-center';
    const complete = ' list-group-item-success';
    const importantClass = ' font-weight-bold text-danger';
    if (done) classNames += complete;
@@ -14,20 +14,27 @@ const TodoListItem = ({ text, important, done, onDeleted, onDone, onImportant })
 
   
    return(
-      <span className={classNames} >
-         <span onClick={onDone}>{text}</span>
-            <button
-               type="button"
-               className="btn float-end"
-               onClick={onDeleted}>
-               <i className="bi bi-trash" style={iconStyle}></i>
-            </button>
+      
+         <li className={classNames} >
+            <div>
+           <p className="text-break" onClick={onDone}>{text}</p>
+           </div>
+           <div>
             <button type="button"
-            className="btn float-end"
+            className="btn justify-content-end"
             onClick={onImportant}>
                <i className="bi bi-shield-fill-exclamation" style={iconStyle}></i>
             </button>
-      </span>
+            <button
+               type="button"
+               className="btn"
+               onClick={onDeleted}>
+               <i className="bi bi-trash" style={iconStyle}></i>
+            </button>
+            </div>
+            
+            </li>
+      
    );
 };
 

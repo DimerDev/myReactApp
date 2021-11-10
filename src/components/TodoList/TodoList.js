@@ -5,7 +5,7 @@ import TodoListItem from "../TodoListItem/TodoListItem";
 const TodoList  = ({todos, onDeleted, onDone, onImportant}) => {
   
    return (
-    <ul className=" list-group">
+    <ul className="list-group">
       {todos.todoItems.map(item => 
       <TodoListItem 
         key={item.id}

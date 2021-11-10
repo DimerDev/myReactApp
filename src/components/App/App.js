@@ -3,12 +3,15 @@ import { useState } from "react/cjs/react.development";
 
 import AddFormItem from "../AddFormItem/AddFormItem";
 import AppHeader from "../AppHeader/AppHeader";
+import ItemStatusButtons from "../ItemStatusButtons/ItemStatusButtons";
 import SearchPanel from "../SearchPanel/SearchPanel";
 import TodoList from "../TodoList/TodoList";
 
+let startId = 100; 
+
 const App = () => {
 
-  let startId = 5; 
+  
 
   const [todoData ,setTodoData] = useState({
       todoItems: [
@@ -32,7 +35,7 @@ const App = () => {
       text: text,
       important: false,
       done: false,
-      id: ++startId + text
+      id: ++startId
     }
     setTodoData(({todoItems}) => {
       const arr = todoItems;
@@ -67,13 +70,17 @@ const App = () => {
     });
   };
 
+
   return (
     <div className="container justify-content-center mt-5">
       <div className="row">
         <div className="col-sm-3"></div>
         <div className="col-sm-6">
           <AppHeader />
-          <SearchPanel todos= {todoData} />
+          <div className="input-group mb-1">
+            <SearchPanel />
+            <ItemStatusButtons />
+          </div>
           <TodoList
             todos= {todoData}
             onDeleted= { (id) => deleteItem(id) }

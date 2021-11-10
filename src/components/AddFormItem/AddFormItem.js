@@ -10,6 +10,7 @@ const AddFormItem = ({onAdded}) => {
       event.preventDefault();
       const taskText = event.target.taskText.value.trim();
       if (taskText !== '') onAdded(taskText);
+      event.target.taskText.value='';
    };
 
    return (
