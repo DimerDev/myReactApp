@@ -11,65 +11,88 @@ let startId = 100;
 
 const App = () => {
 
-  
-
-  const [todoData ,setTodoData] = useState({
-      todoItems: [
-      { text: 'Drink Coffe', important: false, done: false, id: 1 },
-      { text: 'Make App', important: true, done: false, id: 2 },
-      { text: 'Dinner', important: false, done: false, id: 3 },
-    ]
-  });
-  
-  const deleteItem = (id) => {
-    setTodoData(({todoItems}) => {
-      const arr = todoItems.filter((elem)=> elem.id !== id );
-      return {
-        todoItems : arr
-      }
-    });
-  }
-
-  const addItem = (text) => {
-    const newTask = {
+  const createItem = (text) => {
+    const newItem = {
       text: text,
       important: false,
       done: false,
       id: ++startId
-    }
-    setTodoData(({todoItems}) => {
-      const arr = todoItems;
-      arr.push(newTask)
-      return {
-        todoItems : arr
-      }
-    });
+    };
+    return newItem
   };
 
+  const [todoData ,setTodoData] = useState(
+    {
+      todoItems: [
+        createItem('Drink Coffe'),
+        createItem('Make App'),
+        createItem('Dinner')
+    ],
+      filterItems: 'all',
+      searchText: ''
+    }
+  );
+
+  const updateState = (newItems = todoData.todoItems, filterItems = 'all', searchText='') => {
+    const newState = {
+      todoItems: newItems,
+      filterItems: filterItems,
+      searchText: searchText
+    };
+    setTodoData((todoData) => {
+      return newState
+    })
+  }; 
+
   const onToggleDone = (id) => {
-    setTodoData(({todoItems})=>{
-      const arr = todoItems.map(item => {
-        if(item.id === id) item.done = !item.done;
-        return item;
-      });
-      return {
-        todoItems : arr
-      }
+    const arr = todoData.todoItems.map(item => {
+      if(item.id === id) item.done = !item.done;
+      return item;
     });
+    updateState(arr);
+  };
+  
+  const deleteItem = (id) => {
+    const newItems = todoData.todoItems.filter((elem)=> elem.id !== id );
+    updateState(newItems)
+  };
+
+  const addItem = (text) => {
+    const item = createItem(text);
+    const todoItems = todoData.todoItems;
+    todoItems.push(item);
+    updateState(todoItems);
   };
 
   const onToggleImportant = (id) => {
-    setTodoData(({todoItems})=> {
-      const arr = todoItems.map(item => {
-        if (item.id === id) item.important = !item.important;
-        return item;
-      });
-      return {
-        todoItems : arr
-      }
+    const newItems = todoData.todoItems.map(item => {
+      if (item.id === id) item.important = !item.important;
+      return item;
     });
+    updateState(newItems);
   };
+  const {todoItems, filterItems, searchText} = todoData;
 
+  const buttonFilter = (buttonName) => {
+    updateState(undefined, buttonName, undefined);
+  };
+  
+
+  const filter = (items, filter) => {
+    switch (filter) {
+      case 'all':
+        return items;
+      case 'active' :
+        return items.filter((item) => !item.done);
+      case 'done' :
+        return items.filter((item) => item.done);
+      default :
+        return items;
+    };
+  };
+  
+  
+  const visibleItems = filter(todoItems, filterItems);
 
   return (
     <div className="container justify-content-center mt-5">
@@ -79,10 +102,11 @@ const App = () => {
           <AppHeader />
           <div className="input-group mb-1">
             <SearchPanel />
-            <ItemStatusButtons />
+            <ItemStatusButtons
+              onToggle={(buttonName) => buttonFilter(buttonName)} />
           </div>
           <TodoList
-            todos= {todoData}
+            todos= {visibleItems}
             onDeleted= { (id) => deleteItem(id) }
             onDone = { (id) => onToggleDone (id) }
             onImportant = { (id) => onToggleImportant(id) }/>

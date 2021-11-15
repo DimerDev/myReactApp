@@ -1,19 +1,26 @@
 
-const ItemStatusButtons = () => {
+const ItemStatusButtons = ({onToggle}) => {
 
    const buttons = [ 
-      {name: 'all', text: 'All'},
-      {name: 'active', text: 'Active'},
-      {name: 'done', text: 'Done'}
+      {name: 'all', text: 'All', className: "btn btn-outline-primary"},
+      {name: 'active', text: 'Active', className: "btn btn-outline-primary"},
+      {name: 'done', text: 'Done', className: "btn btn-outline-primary"}
    ];
+
+   
+   const handleClick = (event) => {
+      onToggle(event.target.name);
+   }
 
    const buttonGroup = buttons.map(item => 
       <button 
       type="button"
-      className="btn btn-outline-primary"
+      className={item.className}
+      name={item.name}
       key={item.name}
+      onClick={handleClick}
       >{item.text}
-         <span className="badge bg-secondary ms-1"></span>
+         <span className="badge bg-secondary ms-1">{}</span>
       </button>
    );
 

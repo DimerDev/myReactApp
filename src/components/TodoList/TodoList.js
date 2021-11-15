@@ -3,10 +3,10 @@ import React from "react";
 import TodoListItem from "../TodoListItem/TodoListItem";
 
 const TodoList  = ({todos, onDeleted, onDone, onImportant}) => {
-  
+  //console.log(todos);
    return (
     <ul className="list-group">
-      {todos.todoItems.map(item => 
+      {todos.map(item => 
       <TodoListItem 
         key={item.id}
         {...item}
