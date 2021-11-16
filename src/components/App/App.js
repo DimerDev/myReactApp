@@ -77,7 +77,6 @@ const App = () => {
     updateState(undefined, buttonName, undefined);
   };
   
-
   const filter = (items, filter) => {
     switch (filter) {
       case 'all':
@@ -91,8 +90,19 @@ const App = () => {
     };
   };
   
+  const searchItems = (text) =>{
+    if (text.length === 0) return '';
+    updateState(undefined, undefined, text.toLowerCase());
+  };
   
-  const visibleItems = filter(todoItems, filterItems);
+  const search = (items, searchText) => {
+    
+    const findItems = items.filter((item) => item.text.indexOf(searchText) > -1);
+    return findItems;    
+  };
+
+  const visibleItems = filter(search(todoItems, searchText), filterItems);
+
 
   return (
     <div className="container justify-content-center mt-5">
@@ -101,7 +111,7 @@ const App = () => {
         <div className="col-sm-6">
           <AppHeader />
           <div className="input-group mb-1">
-            <SearchPanel />
+            <SearchPanel onSearch={(text)=>searchItems(text)}/>
             <ItemStatusButtons
               onToggle={(buttonName) => sortButton(buttonName)}
               todos={todoData} />
