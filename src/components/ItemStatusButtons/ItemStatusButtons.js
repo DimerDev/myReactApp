@@ -1,28 +1,49 @@
 
-const ItemStatusButtons = ({onToggle}) => {
+const ItemStatusButtons = ({onToggle, todos: {filterItems, todoItems}}) => {
 
    const buttons = [ 
-      {name: 'all', text: 'All', className: "btn btn-outline-primary"},
-      {name: 'active', text: 'Active', className: "btn btn-outline-primary"},
-      {name: 'done', text: 'Done', className: "btn btn-outline-primary"}
+      {name: 'all', text: 'All'},
+      {name: 'active', text: 'Active'},
+      {name: 'done', text: 'Done'}
    ];
 
-   
-   const handleClick = (event) => {
-      onToggle(event.target.name);
-   }
+   const className = 'btn btn-outline-primary';
+   const activeItem = ' active';
+      
+   const itemsCount = (buttonName) => {
+      const allItem =  todoItems.length; 
+      const doneItem = todoItems.filter((item)=> item.done).length;
+      const activeItem = allItem - doneItem;
+      switch (buttonName) {
+         case 'all':
+            return allItem;
+         case 'active':
+            return activeItem;
+         case 'done':
+            return doneItem;
+         default:
+            return 0
+      }
 
-   const buttonGroup = buttons.map(item => 
+   };
+  
+   const handleClick = (event) => {
+      return onToggle(event.target.name)
+   };
+
+   const buttonGroup = buttons.map(item => {
+      return (
       <button 
       type="button"
-      className={item.className}
+      className={(item.name === filterItems) ? className + activeItem : className }
       name={item.name}
       key={item.name}
       onClick={handleClick}
       >{item.text}
-         <span className="badge bg-secondary ms-1">{}</span>
+         <span className="badge bg-secondary ms-1">{itemsCount(item.name)}</span>
       </button>
-   );
+      );
+   });
 
    return (
       

@@ -73,7 +73,7 @@ const App = () => {
   };
   const {todoItems, filterItems, searchText} = todoData;
 
-  const buttonFilter = (buttonName) => {
+  const sortButton = (buttonName) => {
     updateState(undefined, buttonName, undefined);
   };
   
@@ -82,11 +82,11 @@ const App = () => {
     switch (filter) {
       case 'all':
         return items;
-      case 'active' :
+      case 'active':
         return items.filter((item) => !item.done);
-      case 'done' :
+      case 'done':
         return items.filter((item) => item.done);
-      default :
+      default:
         return items;
     };
   };
@@ -103,7 +103,8 @@ const App = () => {
           <div className="input-group mb-1">
             <SearchPanel />
             <ItemStatusButtons
-              onToggle={(buttonName) => buttonFilter(buttonName)} />
+              onToggle={(buttonName) => sortButton(buttonName)}
+              todos={todoData} />
           </div>
           <TodoList
             todos= {visibleItems}
